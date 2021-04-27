@@ -10,4 +10,5 @@ router = routers.DefaultRouter()
 
 urlpatterns = [
     path('', include(router.urls)),
+    path('token/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
 ]
