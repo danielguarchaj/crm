@@ -7,6 +7,7 @@ from . import views
 app_name = 'crm_client'
 
 router = routers.DefaultRouter()
+router.register('clientes', views.ClienteViewSet, basename='clientes')
 
 urlpatterns = [
     path('', include(router.urls)),
