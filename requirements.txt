@@ -4,3 +4,4 @@ djangorestframework-simplejwt==4.6.0
 django-heroku
 gunicorn
 django-cors-headers
+django-filter==2.4.0 

@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Cliente
+from .models import (
+    Cliente,
+    Departamento,
+)
 
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
@@ -22,4 +25,17 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 class ClienteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cliente
+        fields = '__all__'
+
+
+class ClienteSerializerDepth(serializers.ModelSerializer):
+    class Meta:
+        model = Cliente
+        fields = '__all__'
+        depth = 1
+
+
+class DepartamentoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Departamento
         fields = '__all__'
