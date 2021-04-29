@@ -2,6 +2,8 @@ from django.db import models
 
 from django.contrib.auth.models import User
 
+import datetime
+
 ESTADOS = (
     (0, 'Inactivo'),
     (1, 'Activo'),
@@ -28,6 +30,14 @@ class Cliente(models.Model):
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
+
+    @property
+    def edad(self):
+        today = datetime.datetime.utcnow()
+        today_date = datetime.date(today.year, today.month, today.day)
+        birth_date = datetime.date(self.fecha_nacimiento.year, self.fecha_nacimiento.month, self.fecha_nacimiento.day)
+        time_difference = today_date - birth_date
+        return int(time_difference.days / 365)
 
 
 
