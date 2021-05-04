@@ -70,9 +70,9 @@ class DashboardAPIView(APIView):
         month_range = self.get_past_date_range(self.DAYS_AGO_MONTH)
         year_range = self.get_past_date_range(self.DAYS_AGO_YEAR)
         total_clientes = Cliente.objects.count()
-        clientes_este_mes = Cliente.objects.filter(fecha_creacion__gte=month_range['after'], fecha_creacion__lte=month_range['before']).count()
-        clientes_este_anio = Cliente.objects.filter(fecha_creacion__gte=year_range['after'], fecha_creacion__lte=year_range['before']).count()
-        ventas_realizadas = Venta.objects.filter(fecha_creacion__gte=year_range['after'], fecha_creacion__lte=year_range['before']).count()
+        clientes_este_mes = Cliente.objects.filter(fecha_creacion__gte=month_range['after']).count()
+        clientes_este_anio = Cliente.objects.filter(fecha_creacion__gte=year_range['after']).count()
+        ventas_realizadas = Venta.objects.filter(fecha_creacion__gte=year_range['after']).count()
         clientes_por_departamento = [{
             "departamento": departamento['departamento__nombre'],
             "clientes": departamento['clientes']
