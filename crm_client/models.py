@@ -26,7 +26,7 @@ class Cliente(models.Model):
     email = models.EmailField(blank=True, null=True)
     codigo = models.CharField(max_length=15, blank=True, null=True)
     estado = models.SmallIntegerField(choices=ESTADOS, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField()
     fecha_modificacion = models.DateTimeField(auto_now=True)
     
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
@@ -58,7 +58,7 @@ class Venta(models.Model):
     numero_factura = models.CharField(max_length=150)
     comentarios = models.TextField(blank=True, null=True)
     estado = models.SmallIntegerField(choices=ESTADOS, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField()
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
     vendedor = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -69,7 +69,7 @@ class DetalleVenta(models.Model):
     cantidad = models.IntegerField()
     precio_venta = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     estado = models.SmallIntegerField(choices=ESTADOS, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField()
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
     venta = models.ForeignKey(Venta, on_delete=models.CASCADE)
@@ -92,7 +92,7 @@ class Compra(models.Model):
     numero_factura = models.CharField(max_length=150)
     comentarios = models.TextField(blank=True, null=True)
     estado = models.SmallIntegerField(choices=ESTADOS, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField()
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
     proveedor = models.ForeignKey(Proveedor, on_delete=models.CASCADE)
@@ -102,7 +102,7 @@ class DetalleCompra(models.Model):
     cantidad = models.IntegerField()
     costo_unitario = models.DecimalField(max_digits=8, decimal_places=2, blank=True, null=True)
     estado = models.SmallIntegerField(choices=ESTADOS, default=1)
-    fecha_creacion = models.DateTimeField(auto_now_add=True)
+    fecha_creacion = models.DateTimeField()
     fecha_modificacion = models.DateTimeField(auto_now=True)
 
     compra = models.ForeignKey(Compra, on_delete=models.CASCADE)
