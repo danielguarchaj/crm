@@ -47,7 +47,7 @@ class DepartamentoListAPIView(ListAPIView):
 
 class ClienteViewSet(ModelViewSet):
     queryset = Cliente.objects.all()
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     filterset_class = ClienteFilter
 
     def get_serializer_class(self):
@@ -59,7 +59,7 @@ class ClienteViewSet(ModelViewSet):
 
 
 class DashboardAPIView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     DAYS_AGO_MONTH = 30
     DAYS_AGO_YEAR = 365
