@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.views import TokenObtainPairView
 from rest_framework.permissions import IsAuthenticated
 
+from django.contrib.postgres.search import SearchVector
+
 from .reports import (
     get_all_sales_report,
     get_past_date_range,
@@ -33,6 +35,41 @@ from .serializers import (
 from .filters import (
     ClienteFilter
 )
+
+class ClientSearchAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+    def post(self, request, *args, **kwargs):
+        response = {
+            "results": []
+        }
+
+        search_criteria = request.data['search'] or None
+        if search_criteria is None:
+            return Response(response)
+
+        unfiltered_results = []
+
+        for keyword in set(search_criteria.split(' ')):
+            search_results_ = Cliente.objects.annotate(search=SearchVector(
+                "nombres",
+                "apellidos",
+                "email",
+                "codigo",
+                "departamento__nombre",
+            ),).filter(search__contains=keyword)
+
+            serialized_qs = ClienteSerializerDepth(search_results_, many=True).data
+            unfiltered_results.append(serialized_qs)
+        
+        filtered_ids = []
+
+        for qs_result in unfiltered_results:
+            for c in qs_result:
+                if c['id'] not in filtered_ids:
+                    filtered_ids.append(c['id'])
+                    response['results'].append(c)
+
+        return Response(response)
 
 
 class CustomTokenObtainPairView(TokenObtainPairView):

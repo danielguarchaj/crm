@@ -31,6 +31,9 @@ class Cliente(models.Model):
     
     departamento = models.ForeignKey(Departamento, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f'{self.nombres} {self.apellidos} - {self.codigo} - {self.email} - {self.departamento.nombre}'
+
     @property
     def edad(self):
         today = datetime.datetime.utcnow()

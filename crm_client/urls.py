@@ -14,4 +14,5 @@ urlpatterns = [
     path('token/', views.CustomTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('dashboard/', views.DashboardAPIView.as_view(), name='dashboard'),
     path('departamentos/', views.DepartamentoListAPIView.as_view(), name='departamentos'),
+    path('clientes_search/', views.ClientSearchAPIView.as_view(), name='clientes_search'),
 ]
